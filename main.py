@@ -2,7 +2,7 @@
 
 # Class definition for an item with name, price, and quantity attributes
 class Item:
-    def  __init__(self, name, price, quantity):
+    def  __init__(self, name, price, quantity=0):
         # Comment out or remove the print statement for production
         # print(f"An instance has been created: {name}")
         self.name = name
@@ -16,6 +16,7 @@ class Item:
 # Instantiate two items
 item1 = Item("iPhoneSE", 100, 5)
 item2 = Item("iPhone 14", 1000, 3)
+
 
 # Demonstrating the use of attributes and methods
 print(item1.name, item1.calculate_total_price())
