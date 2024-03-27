@@ -1,4 +1,8 @@
+import csv
+
 class Item(object):
+    pay_rate = 0.8 # entire Item namespace
+    all = []
     # constructor
     def __init__(self, name:str, price:float, quantity=0):
         # Run validations
@@ -10,20 +14,47 @@ class Item(object):
         self.price = price
         self.quantity = quantity
 
+        # Actions to execute
+        Item.all.append(self)
+
     def calculate_total_price(self):
         return self.price * self.quantity
 
-item1 = Item("phone", 100, 5)
-print(f"{item1.name}: ${item1.price}")
-print(item1.calculate_total_price())
 
-print("\n") # line break
+    def apply_discount(self):
+        self.price = self.price * self.pay_rate
 
-item2 = Item("laptop", 1000, 2)
-print(f"{item2.name}: ${item2.price}")
-print(item2.calculate_total_price())
 
-item2.has_numpad = False
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open('items.csv', 'r') as f:
+            reader = csv.DictReader(f)
+            items = list(reader)
+
+        for item in items:
+            print(item)
+
+
+
+
+    def __repr__(self):
+        return f"Item('{self.name}, {self.price}, {self.quantity}')"
+
+item1 = Item("Phone", 100, 1)
+item2 = Item("Laptop", 1000, 3)
+item3 = Item("Cable", 10, 5)
+item4 = Item("Mouse", 50, 5)
+item5 = Item("Keyboard", 75, 5)
+
+#print(Item.all)
+#for instance in Item.all:
+#    print(instance.name)
+
+Item.instantiate_from_csv()
+
+# namespace (class and instance){{{
+#print(f"\nObject in the Item namespace: {Item.__dict__}\n")
+#print(f"Objects in the item1 namespace: {item1.__dict__}")# }}}
 
 
 """# {{{
